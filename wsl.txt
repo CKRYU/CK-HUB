@@ -1,0 +1,9 @@
+/* wsl : Windows Subsystem for Linux 2 */
+wsl --list
+wsl -d Ubuntu-20.04
+ssh -vT git@github.com/ckryu/ck-hub
+git clone ssh://git@github.com/ckryu/ck-hub
+git add hello.c
+git status
+git git commit -m "hello.c"
+git push origin main
