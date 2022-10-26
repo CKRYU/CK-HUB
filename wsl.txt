@@ -1,9 +1,51 @@
 /* wsl : Windows Subsystem for Linux 2 */
 wsl --list
 wsl -d Ubuntu-20.04
+
+sudo apt install gcc
+
 ssh -vT git@github.com/ckryu/ck-hub
+ssh-agent -s
+ssh-add -I -E sha256
+ssh-keygen -t rsa -b 4096 -C "cheolkyu.ryu@lge.com"
+ssh-add ~/.ssh/id_rsa
+eval $(ssh-agent)
+ssh-add ~/.ssh/id_rsa
+cat id_rsa.pub
+
 git clone ssh://git@github.com/ckryu/ck-hub
 git add hello.c
 git status
 git git commit -m "hello.c"
 git push origin main
+
+docker pull jenkins/jenkins:lts-jdk11
+docker run -d -p 8181:8080 -v /jenkins:/var/jenkins_home --name docker-jenkins-container -u root jenkins/jenkins:lts-jdk11
+
+vi docker-compose.yaml
+docker-compose up -d
+docker ps -a
+docker-compose logs
+docker exec -it jenkins_cicd bash
+
+docker run -d -p 8080:8080 -p 50000:50000 -v /jenkins:/var/jenkins -v /home/ubuntu/.ssh:/root/.ssh -v /var/run/docker.sock:/var/run/docker.sock --name jenkins -u root jenkins/jenkins:lts
+
+docker run -d -p 8181:8080 -v /jenkins:/var/jenkins_home --name docker-jenkins-container -u root jenkins/jenkins:lts-jdk11
+
+docker run -d -p 8080:8080 -v /jenkins:/var/jenkins -v /home/k8s/.ssh:/root/.ssh -v /var/run/docker.sock:/var/run/docker.sock --privileged --name docker-jenkins-container -u root jenkins/jenkins:lts
+
+docker exec -it -w /root docker-jenkins-container /bin/bash
+
+sudo apt install net-tools
+ifconfig -a
+http://172.31.208.53:8080
+
+mkdir /var/jenkins_home/.ssh
+cd /var/jenkins_home/.ssh
+ssh-keygen -t rsa -f /var/jenkins_home/.ssh/jenkins_ci
+cat jenkins_ci
+cat jenkins_ci.pub
+
+
+
+
